@@ -4,6 +4,7 @@
     clippy::nursery,
     clippy::cargo,
 )]
+#![allow(unused_imports, dead_code)]
 
 mod util;
 mod task01;
