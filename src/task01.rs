@@ -13,7 +13,7 @@ pub fn task01() {
         })
         .vec();
 
-    println!("Task 1: {}", nums.iter().max().unwrap());
+    println!("Part 1: {}", nums.iter().max().unwrap());
 
     let top_3 = nums.into_iter().fold([0, 0, 0], |mut top_3, num| {
         if num > top_3[2] {
@@ -23,5 +23,5 @@ pub fn task01() {
         top_3
     });
 
-    println!("Task 2: {}", top_3.iter().sum::<u64>());
+    println!("Part 2: {}", top_3.iter().sum::<u64>());
 }

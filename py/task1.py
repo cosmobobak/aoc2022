@@ -1,0 +1,18 @@
+from functools import reduce
+
+with open("tasks/task1.txt", "r") as f:
+    text = f.read()
+
+groups = text.split("\n\n")
+nums = [sum(int(x) for x in group.splitlines()) for group in groups]
+
+print(f"Part 1: {max(nums)}")
+
+def insert_to_sorted(arr: "list[int]", n: int) -> "list[int]":
+    if n > arr[-1]: arr[-1] = n
+    arr.sort(reverse=True)
+    return arr
+
+max3 = reduce(insert_to_sorted, nums, [0, 0, 0])
+
+print(f"Part 2: {sum(max3)}")
