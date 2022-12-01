@@ -1,5 +1,5 @@
 # tool macros
-CXX := clang++-15
+CXX := g++-11
 CXXFLAGS := -std=c++2b -O2 -Wall -Wextra -Wpedantic -Werror
 DBGFLAGS := -std=c++2b -Wall -Wextra -Wpedantic -Werror -g
 CCOBJFLAGS := $(CXXFLAGS) -c
