@@ -20,6 +20,5 @@ pub fn task01() {
         });
 
     println!("Part 1: {}", top3[0]);
-
     println!("Part 2: {}", top3.iter().sum::<u64>());
 }
