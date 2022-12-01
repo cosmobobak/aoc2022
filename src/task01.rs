@@ -11,7 +11,7 @@ pub fn task01() {
 
     println!("Task 1: {}", nums.iter().max().unwrap());
 
-    let top_3 = nums.iter().fold([0, 0, 0], |mut top_3, &num| {
+    let top_3 = nums.into_iter().fold([0, 0, 0], |mut top_3, num| {
         if num > top_3[2] {
             top_3[2] = num;
             top_3.sort_unstable_by(|a, b| b.cmp(a));
