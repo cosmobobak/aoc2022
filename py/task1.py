@@ -1,7 +1,7 @@
 from functools import reduce
+from util import get_task
 
-with open("tasks/task1.txt", "r") as f:
-    text = f.read()
+text = get_task(1)
 
 groups = text.split("\n\n")
 nums = [sum(int(x) for x in group.splitlines()) for group in groups]

@@ -1,1 +1,6 @@
 /target
+/cpp/bin/*
+/cpp/debug
+/cpp/obj
+/py/__pycache__
+.vscode
