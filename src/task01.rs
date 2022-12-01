@@ -1,7 +1,7 @@
 use crate::util::get_task;
 
 pub fn task01() {
-    let data = get_task(1);
+    let data = get_task(1); // the raw text of the input file
 
     let top3 = data
         .split("\r\n\r\n")
