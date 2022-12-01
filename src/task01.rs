@@ -11,7 +11,8 @@ pub fn task01() {
                 .map(|line| line.parse::<u64>().unwrap())
                 .sum()
         })
-        .max_n_ct::<3>().unwrap();
+        .max_n_ct::<3>()
+        .unwrap();
 
     println!("Part 1: {}", top3[0]);
     println!("Part 2: {}", top3.iter().sum::<u64>());
