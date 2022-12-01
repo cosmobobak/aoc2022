@@ -1,7 +1,7 @@
 // use adqselect::nth_element;
 
 pub fn get_task(task_id: usize) -> String {
-    std::fs::read_to_string(format!("tasks/task{}.txt", task_id)).expect("Error in file fetch.")
+    std::fs::read_to_string(format!("tasks/task{:02}.txt", task_id)).expect("Error in file fetch.")
 }
 
 // pub fn median_element<T: Ord>(s: &mut [T]) -> &mut T {
