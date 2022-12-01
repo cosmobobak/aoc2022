@@ -1,4 +1,4 @@
-use crate::util::get_task;
+use crate::util::{get_task, MinMaxN};
 
 pub fn task01() {
     let data = get_task(1); // the raw text of the input file
@@ -11,13 +11,7 @@ pub fn task01() {
                 .map(|line| line.parse::<u64>().unwrap())
                 .sum()
         })
-        .fold([0, 0, 0], |mut top_3, num| {
-            if num > top_3[2] {
-                top_3[2] = num;
-                top_3.sort_unstable_by(|a, b| b.cmp(a));
-            }
-            top_3
-        });
+        .max_n_ct::<3>().unwrap();
 
     println!("Part 1: {}", top3[0]);
     println!("Part 2: {}", top3.iter().sum::<u64>());
