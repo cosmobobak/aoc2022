@@ -11,3 +11,13 @@ pub fn get_task(task_id: usize) -> String {
 //     nth_element(s, idx, &mut Ord::cmp);
 //     &mut s[idx]
 // }
+
+pub trait CollectIntoVec<T>: Iterator<Item = T> {
+    fn vec(self) -> Vec<T>;
+}
+
+impl<T, I: Iterator<Item = T>> CollectIntoVec<T> for I {
+    fn vec(self) -> Vec<T> {
+        self.collect()
+    }
+}

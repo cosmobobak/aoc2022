@@ -1,13 +1,17 @@
-use crate::util::get_task;
+use crate::util::{get_task, CollectIntoVec};
 
 pub fn task01() {
     let data = get_task(1);
 
-    let runs = data.split("\r\n\r\n").collect::<Vec<&str>>();
-    let nums = runs.iter()
-        .map(|run| run.trim().lines().map(|line| {
-            line.parse::<u64>().unwrap()
-        }).sum::<u64>()).collect::<Vec<u64>>();
+    let nums = data
+        .split("\r\n\r\n")
+        .map(|run| {
+            run.trim()
+                .lines()
+                .map(|line| line.parse::<u64>().unwrap())
+                .sum()
+        })
+        .vec();
 
     println!("Task 1: {}", nums.iter().max().unwrap());
 
