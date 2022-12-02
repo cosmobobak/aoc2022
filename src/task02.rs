@@ -1,25 +1,9 @@
+#![allow(clippy::cast_possible_wrap)]
+
 use crate::util::get_task;
 
-fn outcome_score(them: u8, us: u8) -> u8 {
-    // 0 is rock, 1 is paper, 2 is scissors
-    match (them, us) {
-        (0, 0) | (1, 1) | (2, 2) => 3,
-        (0, 1) | (1, 2) | (2, 0) => 6,
-        (0, 2) | (1, 0) | (2, 1) => 0,
-        _ => panic!("Invalid input"),
-    }
-}
-
-fn choose_move(them: u8, outcome: u8) -> u8 {
-    // 0 is rock, 1 is paper, 2 is scissors
-    match (them, outcome) {
-        (x, 1) => x,
-        (0, 2) | (2, 0) => 1,
-        (1, 2) | (0, 0) => 2,
-        (2, 2) | (1, 0) => 0,
-        _ => panic!("Invalid input"),
-    }
-}
+const fn choose_move(them: u8, outcome: u8) -> u8 { ((them as i8 + (outcome as i8 - 1)).rem_euclid(3)) as u8 }
+const fn outcome_score(them: u8, us: u8) -> u8 { [3, 0, 6][(them as i8 - us as i8).rem_euclid(3) as usize] }
 
 pub fn task02() {
     let data = get_task(2);
