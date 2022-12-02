@@ -14,5 +14,5 @@ use task01::task01;
 use task02::task02;
 
 fn main() {
-    task01();
+    task02();
 }
