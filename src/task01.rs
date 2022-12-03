@@ -1,9 +1,7 @@
 use crate::util::{get_task, MinMaxN};
 
 pub fn task01() {
-    let data = get_task(1); // the raw text of the input file
-
-    let top3 = data
+    let top3 = include_str!("../tasks/task01.txt")
         .split("\r\n\r\n")
         .map(|run| {
             run.trim()

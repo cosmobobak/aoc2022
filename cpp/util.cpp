@@ -16,3 +16,4 @@ auto get_task(size_t task) -> std::string {
     ss << file.rdbuf();
     return ss.str();
 }
+

@@ -108,3 +108,50 @@ where
         self.max_n_ct_by::<N>(|a, b| b.cmp(a))
     }
 }
+
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_max_n() {
+        let v = vec![1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+        assert_eq!(v.iter().max_n(3), Some(vec![&10, &9, &8]));
+        assert_eq!(v.iter().max_n(0), Some(vec![]));
+        assert_eq!(v.iter().max_n(11), None);
+    }
+
+    #[test]
+    fn test_min_n() {
+        let v = vec![1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+        assert_eq!(v.iter().min_n(3), Some(vec![&1, &2, &3]));
+        assert_eq!(v.iter().min_n(0), Some(vec![]));
+        assert_eq!(v.iter().min_n(11), None);
+    }
+
+    #[test]
+    fn test_max_n_ct() {
+        let v = vec![1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+        assert_eq!(v.iter().max_n_ct::<3>(), Some([&10, &9, &8]));
+        assert_eq!(v.iter().max_n_ct::<0>(), Some([]));
+        assert_eq!(v.iter().max_n_ct::<11>(), None);
+    }
+
+    #[test]
+    fn test_min_n_ct() {
+        let v = vec![1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+        assert_eq!(v.iter().min_n_ct::<3>(), Some([&1, &2, &3]));
+        assert_eq!(v.iter().min_n_ct::<0>(), Some([]));
+        assert_eq!(v.iter().min_n_ct::<11>(), None);
+    }
+
+    #[test]
+    fn test_max_n_ct_by() {
+        let v = vec![1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+        assert_eq!(
+            v.iter().max_n_ct_by::<3>(|a, b| b.cmp(a)),
+            Some([&1, &2, &3])
+        );
+        assert_eq!(v.iter().max_n_ct_by::<0>(|a, b| b.cmp(a)), Some([]));
+        assert_eq!(v.iter().max_n_ct_by::<11>(|a, b| b.cmp(a)), None);
+    }
+}

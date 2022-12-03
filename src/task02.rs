@@ -6,9 +6,7 @@ const fn choose_move(them: u8, outcome: u8) -> u8 { ((them as i8 + (outcome as i
 const fn outcome_score(them: u8, us: u8) -> u8 { [3, 0, 6][(them as i8 - us as i8).rem_euclid(3) as usize] }
 
 pub fn task02() {
-    let data = get_task(2);
-
-    let scores = data
+    let scores = include_str!("../tasks/task02.txt")
         .lines()
         .map(|line| {
             let b = line.as_bytes();
