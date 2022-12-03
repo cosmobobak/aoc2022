@@ -1,5 +1,3 @@
-#include "task01.h"
-
 #include <algorithm>
 #include <charconv>
 #include <iostream>
@@ -9,6 +7,9 @@
 #include <numeric>
 
 #include "util.h"
+#include "nanorange.hpp"
+
+#include "task01.h"
 
 namespace rng = std::ranges;
 namespace vws = std::views;

@@ -1,6 +1,7 @@
 #include "task01.h"
+#include "task02.h"
 
 auto main() -> int {
-    task01();
+    task02();
     return 0;
 }
