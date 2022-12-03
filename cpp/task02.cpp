@@ -15,11 +15,11 @@ using std::array;
 using std::string_view;
 using std::vector;
 
-void task01() {
+void task02() {
     auto text = get_task(2);
     
     
 
-    std::printf("Part 1: %\\llu\r\n");
-    std::printf("Part 2: %\\llu\r\n");
+    std::printf("Part 1: %llu\r\n", 0ull);
+    std::printf("Part 2: %llu\r\n", 0ull);
 }
