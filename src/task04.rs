@@ -17,25 +17,24 @@ const fn overlap(a: (i32, i32), b: (i32, i32)) -> bool {
 }
 
 pub fn task04() {
-    let parts = include_str!("../tasks/task04.txt")
-        .lines()
-        .map(|line| {
-            line.split_once(',')
-                .map(|(lhs, rhs)| {
-                    let m = |s: &str| {
-                        s.split_once('-')
-                            .map(|(lhs, rhs)| (lhs.parse().unwrap(), rhs.parse().unwrap()))
-                            .unwrap()
-                    };
-                    (m(lhs), m(rhs))
-                })
-                .map(|(lhs, rhs)| (either_contains(lhs, rhs), overlap(lhs, rhs)))
-                .unwrap()
-        })
-        .fold((0, 0), |(a, b), (c, d)| {
-            (a + u64::from(c), b + u64::from(d))
-        });
+    let (mut part1, mut part2): (u64, u64) = (0, 0);
 
-    println!("Part 1: {}", parts.0);
-    println!("Part 2: {}", parts.1);
+    for line in include_str!("../tasks/task04.txt").lines() {
+        let (lhs, rhs) = line
+            .split_once(',')
+            .map(|(lhs, rhs)| {
+                let m = |s: &str| {
+                    s.split_once('-')
+                        .map(|(lhs, rhs)| (lhs.parse().unwrap(), rhs.parse().unwrap()))
+                        .unwrap()
+                };
+                (m(lhs), m(rhs))
+            })
+            .unwrap();
+        part1 += u64::from(either_contains(lhs, rhs));
+        part2 += u64::from(overlap(lhs, rhs));
+    }
+
+    println!("Part 1: {}", part1);
+    println!("Part 2: {}", part2);
 }
