@@ -4,15 +4,16 @@ use itertools::Itertools;
 
 use crate::util::CollectIntoVec;
 
-fn either_contains(a: (u64, u64), b: (u64, u64)) -> bool {
-    match a.0.cmp(&b.0) {
-        Ordering::Equal => true,
-        o => o != b.1.cmp(&a.1).reverse(),
-    }
+const fn either_contains(a: (i32, i32), b: (i32, i32)) -> bool {
+    let left_vector = b.0 - a.0;
+    let right_vector = b.1 - a.1;
+    left_vector * right_vector <= 0
 }
 
-fn overlap(a: (u64, u64), b: (u64, u64)) -> bool {
-    a.0.cmp(&b.0) != a.0.cmp(&b.1) || b.0.cmp(&a.0) != b.0.cmp(&a.1)
+const fn overlap(a: (i32, i32), b: (i32, i32)) -> bool {
+    let left_vector = b.0 - a.1;
+    let right_vector = b.1 - a.0;
+    left_vector * right_vector <= 0
 }
 
 pub fn task04() {
