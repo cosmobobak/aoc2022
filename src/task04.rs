@@ -11,9 +11,7 @@ const fn either_contains(a: (i32, i32), b: (i32, i32)) -> bool {
 }
 
 const fn overlap(a: (i32, i32), b: (i32, i32)) -> bool {
-    let left_vector = b.0 - a.1;
-    let right_vector = b.1 - a.0;
-    left_vector * right_vector <= 0
+    a.0 <= b.1 && b.0 <= a.1
 }
 
 pub fn task04() {
