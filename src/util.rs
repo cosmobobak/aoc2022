@@ -76,6 +76,8 @@ where
         mut self,
         cmp: impl Fn(&T, &T) -> Ordering,
     ) -> Option<[T; N]> {
+        // we would love to use `let mut v = array::try_from_fn(|_| self.next())?;`, but that's unstable.
+        
         // Create an uninitialized array of `MaybeUninit`. The `assume_init` is
         // safe because the type we are claiming to have initialized here is a
         // bunch of `MaybeUninit`s, which do not require initialization.
