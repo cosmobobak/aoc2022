@@ -21,6 +21,7 @@ fn split(s: &str) -> (i32, i32) {
 }
 
 pub fn task04() {
+    let start = std::time::Instant::now();
     let (mut part1, mut part2): (u64, u64) = (0, 0);
 
     for line in include_str!("../tasks/task04.txt").lines() {
@@ -34,4 +35,6 @@ pub fn task04() {
 
     println!("Part 1: {}", part1);
     println!("Part 2: {}", part2);
+    let elapsed = start.elapsed();
+    println!("Elapsed: {:.3}ms", elapsed.as_secs_f64() * 1000.0);
 }

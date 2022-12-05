@@ -19,6 +19,7 @@ fn mask(s: &str) -> u128 {
 }
 
 pub fn task03() {
+    let start = std::time::Instant::now();
     let input = include_str!("../tasks/task03.txt");
 
     let total_priority = input
@@ -43,4 +44,6 @@ pub fn task03() {
         .sum::<u64>();
 
     println!("Part 2: {total_priority}");
+    let elapsed = start.elapsed();
+    println!("Elapsed: {:.3}ms", elapsed.as_secs_f64() * 1000.0);
 }

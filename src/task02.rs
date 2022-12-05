@@ -6,6 +6,7 @@ const fn choose_move(them: u8, outcome: u8) -> u8 { ((them as i8 + (outcome as i
 const fn outcome_score(them: u8, us: u8) -> u8 { [3, 0, 6][(them as i8 - us as i8).rem_euclid(3) as usize] }
 
 pub fn task02() {
+    let start = std::time::Instant::now();
     let scores = include_str!("../tasks/task02.txt")
         .lines()
         .map(|line| {
@@ -22,4 +23,6 @@ pub fn task02() {
 
     println!("Part 1: {}", scores.0);
     println!("Part 2: {}", scores.1);
+    let elapsed = start.elapsed();
+    println!("Elapsed: {:.3}ms", elapsed.as_secs_f64() * 1000.0);
 }

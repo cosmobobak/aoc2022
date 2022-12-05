@@ -67,6 +67,7 @@ fn borrow_indexes<T>(slice: &mut [T], i1: usize, i2: usize) -> (&mut T, &mut T) 
 }
 
 pub fn task05() {
+    let start = std::time::Instant::now();
     let (arrangement, instructions) = include_str!("../tasks/task05.txt").split_once("\r\n\r\n").unwrap();
 
     let mut stacks = [StaticStack::<u8, 100>::new(); 9];
@@ -119,4 +120,7 @@ pub fn task05() {
         print!("{}", s.peek().unwrap() as char);
     }
     println!();
+
+    let elapsed = start.elapsed();
+    println!("Elapsed: {:.3}ms", elapsed.as_secs_f64() * 1000.0);
 }
