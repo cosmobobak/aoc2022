@@ -1,6 +1,6 @@
 
 #[derive(Clone, Copy)]
-struct StaticStack<T: Copy, const CAPACITY: usize> {
+pub struct StaticStack<T: Copy, const CAPACITY: usize> {
     stack: [T; CAPACITY],
     top: usize,
 }
