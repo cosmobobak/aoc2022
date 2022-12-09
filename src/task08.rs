@@ -37,8 +37,7 @@ pub fn scenic_score(trees: &[u8], height: usize, width: usize, x: usize, y: usiz
         }
     }
     // done
-    let score = scores.iter().product();
-    score
+    scores.iter().product()
 }
 
 pub fn task08() {
@@ -127,4 +126,24 @@ pub fn task08() {
 
     let elapsed = start.elapsed();
     println!("Elapsed: {:.3}ms", elapsed.as_secs_f64() * 1000.0);
+
+    println!("Interesting metrics:");
+    println!("  - width: {}", width);
+    println!("  - height: {}", height);
+    println!("  - number of trees visible from at least two edges: {}", (1..width - 1)
+        .flat_map(|x| (1..height - 1).map(move |y| (x, y)))
+        .map(|(x, y)| visible[index(x, y)].count_ones())
+        .filter(|&c| c >= 2)
+        .count());
+    println!("  - number of trees visible from at least three edges: {}", (1..width - 1)
+        .flat_map(|x| (1..height - 1).map(move |y| (x, y)))
+        .map(|(x, y)| visible[index(x, y)].count_ones())
+        .filter(|&c| c >= 3)
+        .count());
+    println!("  - number of trees visible from at least four edges: {}", (1..width - 1)
+        .flat_map(|x| (1..height - 1).map(move |y| (x, y)))
+        .map(|(x, y)| visible[index(x, y)].count_ones())
+        .filter(|&c| c >= 4)
+        .count());
+    
 }
