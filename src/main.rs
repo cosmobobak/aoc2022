@@ -16,6 +16,7 @@ mod task06;
 mod task07;
 mod task08;
 mod task09;
+mod task10;
 
 use task01::task01;
 use task02::task02;
@@ -26,7 +27,8 @@ use task06::task06;
 use task07::task07;
 use task08::task08;
 use task09::task09;
+use task10::task10;
 
 fn main() {
-    task09();
+    task10();
 }
