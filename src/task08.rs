@@ -102,17 +102,6 @@ pub fn task08() {
         }
     }
     let visible_trees = visible.iter().filter(|&&v| v != 0).count();
-    // let mask_sum_chars: [char; 5] = [' ', '.', '*', '&', '#'];
-    // for row in 0..height {
-    //     for col in 0..width {
-    //         let current_idx = index(col, row);
-    //         let mask = visible[current_idx];
-    //         let mask_sum = mask.count_ones();
-    //         let mask_sum_char = mask_sum_chars[mask_sum as usize];
-    //         print!(" {}", mask_sum_char);
-    //     }
-    //     println!();
-    // }
     println!("Part 1: {}", visible_trees);
 
     let best_position_score = (1..width - 1)
@@ -128,32 +117,4 @@ pub fn task08() {
 
     let elapsed = start.elapsed();
     println!("Elapsed: {:.3}ms", elapsed.as_secs_f64() * 1000.0);
-
-    println!("Interesting metrics:");
-    println!("  - width: {}", width);
-    println!("  - height: {}", height);
-    println!(
-        "  - number of trees visible from at least two edges: {}",
-        (1..width - 1)
-            .flat_map(|x| (1..height - 1).map(move |y| (x, y)))
-            .map(|(x, y)| visible[index(x, y)].count_ones())
-            .filter(|&c| c >= 2)
-            .count()
-    );
-    println!(
-        "  - number of trees visible from at least three edges: {}",
-        (1..width - 1)
-            .flat_map(|x| (1..height - 1).map(move |y| (x, y)))
-            .map(|(x, y)| visible[index(x, y)].count_ones())
-            .filter(|&c| c >= 3)
-            .count()
-    );
-    println!(
-        "  - number of trees visible from at least four edges: {}",
-        (1..width - 1)
-            .flat_map(|x| (1..height - 1).map(move |y| (x, y)))
-            .map(|(x, y)| visible[index(x, y)].count_ones())
-            .filter(|&c| c >= 4)
-            .count()
-    );
 }
