@@ -17,6 +17,16 @@ unsafe fn transmute_array<const SIZE: usize, T, U>(arr: [T; SIZE]) -> [U; SIZE] 
     out
 }
 
+pub fn borrow_indexes<T>(slice: &mut [T], i1: usize, i2: usize) -> (&mut T, &mut T) {
+    if i1 < i2 {
+        let split = slice.split_at_mut(i2);
+        (&mut split.0[i1], &mut split.1[0])
+    } else {
+        let split = slice.split_at_mut(i1);
+        (&mut split.1[0], &mut split.0[i2])
+    }
+}
+
 pub trait MinMaxN<T>: Iterator<Item = T>
 where
     T: Ord,

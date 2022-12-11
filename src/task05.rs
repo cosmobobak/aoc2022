@@ -1,3 +1,5 @@
+use crate::util::borrow_indexes;
+
 #[derive(Clone, Copy)]
 pub struct StaticStack<T: Copy, const CAPACITY: usize> {
     stack: [T; CAPACITY],
@@ -52,16 +54,6 @@ impl<const CAPACITY: usize> StaticStack<u8, CAPACITY> {
 
     fn drop_last(&mut self, n: usize) {
         self.top = self.top.saturating_sub(n);
-    }
-}
-
-fn borrow_indexes<T>(slice: &mut [T], i1: usize, i2: usize) -> (&mut T, &mut T) {
-    if i1 < i2 {
-        let split = slice.split_at_mut(i2);
-        (&mut split.0[i1], &mut split.1[0])
-    } else {
-        let split = slice.split_at_mut(i1);
-        (&mut split.1[0], &mut split.0[i2])
     }
 }
 

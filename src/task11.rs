@@ -1,5 +1,7 @@
 #![allow(clippy::cast_sign_loss)]
 
+use std::sync::atomic::AtomicUsize;
+
 use crate::util::MinMaxN;
 
 #[derive(Clone, Copy)]
@@ -25,7 +27,8 @@ struct Monkey {
 }
 
 fn turn<const IS_PART_1: bool>(ms: &mut [Monkey], m: usize, global_modulus: i64) {
-    for worry_level in std::mem::replace(&mut ms[m].items, Vec::with_capacity(20)) {
+    for i in 0..ms[m].items.len() {
+        let worry_level = ms[m].items[i];
         // monkey inspects the item
         let new = ms[m].op.apply(worry_level);
         ms[m].inspections += 1;
@@ -38,6 +41,7 @@ fn turn<const IS_PART_1: bool>(ms: &mut [Monkey], m: usize, global_modulus: i64)
         // monkey gives the item to the other monkey
         ms[to].items.push(new);
     }
+    ms[m].items.clear();
 }
 
 pub fn task11() {
@@ -48,7 +52,9 @@ pub fn task11() {
     for monkey_block in data.split("\r\n\r\n") {
         let mut lines = monkey_block.lines();
         lines.next();
-        let starting_items: Vec<i64> = lines.next().unwrap().split_once(": ").unwrap().1.split(", ").map(|s| s.parse().unwrap()).collect();
+        let mut starting_items = Vec::with_capacity(25);
+        let si_it = lines.next().unwrap().split_once(": ").unwrap().1.split(", ").map(|s| s.parse::<i64>().unwrap());
+        starting_items.extend(si_it);
         let op = lines.next().unwrap().split_once("new = old ").unwrap().1;
         let op = match op {
             "* old" => Op::Square,
