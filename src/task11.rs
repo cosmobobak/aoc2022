@@ -25,8 +25,7 @@ struct Monkey {
 }
 
 fn turn<const IS_PART_1: bool>(ms: &mut [Monkey], m: usize, global_modulus: i64) {
-    let items = std::mem::take(&mut ms[m].items);
-    for worry_level in items {
+    for worry_level in std::mem::take(&mut ms[m].items) {
         // monkey inspects the item
         let new = ms[m].op.apply(worry_level);
         ms[m].inspections += 1;
