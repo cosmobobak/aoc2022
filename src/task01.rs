@@ -1,4 +1,4 @@
-use crate::util::{get_task, MinMaxN};
+use crate::util::MinMaxN;
 
 pub fn task01() {
     let start = std::time::Instant::now();

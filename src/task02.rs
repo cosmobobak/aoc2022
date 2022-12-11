@@ -1,7 +1,5 @@
 #![allow(clippy::cast_possible_wrap)]
 
-use crate::util::get_task;
-
 const fn choose_move(them: u8, outcome: u8) -> u8 {
     ((them as i8 + (outcome as i8 - 1)).rem_euclid(3)) as u8
 }
