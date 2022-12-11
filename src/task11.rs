@@ -6,7 +6,7 @@ use crate::util::MinMaxN;
 enum Op { Add(i64), Mul(i64), Square }
 
 impl Op {
-    fn apply(&self, old: i64) -> i64 {
+    const fn apply(self, old: i64) -> i64 {
         match self {
             Self::Add(n) => old + n,
             Self::Mul(n) => old * n,
@@ -25,7 +25,7 @@ struct Monkey {
 }
 
 fn turn<const IS_PART_1: bool>(ms: &mut [Monkey], m: usize, global_modulus: i64) {
-    for worry_level in std::mem::take(&mut ms[m].items) {
+    for worry_level in std::mem::replace(&mut ms[m].items, Vec::with_capacity(20)) {
         // monkey inspects the item
         let new = ms[m].op.apply(worry_level);
         ms[m].inspections += 1;
