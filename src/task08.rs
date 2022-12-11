@@ -1,11 +1,10 @@
-
 pub fn scenic_score(trees: &[u8], height: usize, width: usize, x: usize, y: usize) -> u32 {
     let index = |x: usize, y: usize| -> usize { y * width + x };
     let mut scores = [0; 4];
     let our_height = u32::from(trees[index(x, y)]);
     // run until there is a tree taller than us, or we reach the end
     // down
-    for row in y+1..height {
+    for row in y + 1..height {
         let current = u32::from(trees[index(x, row)]);
         scores[0] += 1;
         if current >= our_height {
@@ -21,7 +20,7 @@ pub fn scenic_score(trees: &[u8], height: usize, width: usize, x: usize, y: usiz
         }
     }
     // right
-    for col in x+1..width {
+    for col in x + 1..width {
         let current = u32::from(trees[index(col, y)]);
         scores[2] += 1;
         if current >= our_height {
@@ -122,7 +121,10 @@ pub fn task08() {
         .max()
         .unwrap();
 
-    println!("Part 2: {} ({}, {})", best_position_score.0, best_position_score.1, best_position_score.2);
+    println!(
+        "Part 2: {} ({}, {})",
+        best_position_score.0, best_position_score.1, best_position_score.2
+    );
 
     let elapsed = start.elapsed();
     println!("Elapsed: {:.3}ms", elapsed.as_secs_f64() * 1000.0);
@@ -130,20 +132,28 @@ pub fn task08() {
     println!("Interesting metrics:");
     println!("  - width: {}", width);
     println!("  - height: {}", height);
-    println!("  - number of trees visible from at least two edges: {}", (1..width - 1)
-        .flat_map(|x| (1..height - 1).map(move |y| (x, y)))
-        .map(|(x, y)| visible[index(x, y)].count_ones())
-        .filter(|&c| c >= 2)
-        .count());
-    println!("  - number of trees visible from at least three edges: {}", (1..width - 1)
-        .flat_map(|x| (1..height - 1).map(move |y| (x, y)))
-        .map(|(x, y)| visible[index(x, y)].count_ones())
-        .filter(|&c| c >= 3)
-        .count());
-    println!("  - number of trees visible from at least four edges: {}", (1..width - 1)
-        .flat_map(|x| (1..height - 1).map(move |y| (x, y)))
-        .map(|(x, y)| visible[index(x, y)].count_ones())
-        .filter(|&c| c >= 4)
-        .count());
-    
+    println!(
+        "  - number of trees visible from at least two edges: {}",
+        (1..width - 1)
+            .flat_map(|x| (1..height - 1).map(move |y| (x, y)))
+            .map(|(x, y)| visible[index(x, y)].count_ones())
+            .filter(|&c| c >= 2)
+            .count()
+    );
+    println!(
+        "  - number of trees visible from at least three edges: {}",
+        (1..width - 1)
+            .flat_map(|x| (1..height - 1).map(move |y| (x, y)))
+            .map(|(x, y)| visible[index(x, y)].count_ones())
+            .filter(|&c| c >= 3)
+            .count()
+    );
+    println!(
+        "  - number of trees visible from at least four edges: {}",
+        (1..width - 1)
+            .flat_map(|x| (1..height - 1).map(move |y| (x, y)))
+            .map(|(x, y)| visible[index(x, y)].count_ones())
+            .filter(|&c| c >= 4)
+            .count()
+    );
 }

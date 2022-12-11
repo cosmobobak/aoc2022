@@ -10,7 +10,9 @@ pub fn task10() {
     let mut display = [0; 6 * 40];
     let is_drawn = |register: i32, clock: i32| ((clock - 1) % 40).abs_diff(register) <= 1;
     let mut cycle = |r| {
-        if clocks - 20 >= 0 && (clocks - 20) % 40 == 0 { cycle_sum += r * clocks; }
+        if clocks - 20 >= 0 && (clocks - 20) % 40 == 0 {
+            cycle_sum += r * clocks;
+        }
         display[clocks as usize - 1] = [b' ', b'@'][usize::from(is_drawn(r, clocks))];
         clocks += 1;
     };

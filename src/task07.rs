@@ -1,4 +1,4 @@
-use std::collections::{HashMap, hash_map::Entry};
+use std::collections::{hash_map::Entry, HashMap};
 
 const TOTAL_SPACE: usize = 70_000_000;
 const NEEDED_SPACE: usize = 30_000_000;
@@ -11,21 +11,21 @@ struct Directory {
 
 enum Node {
     Directory(Directory),
-    File { size: usize }
+    File { size: usize },
 }
 
 impl Node {
     const fn as_directory(&self) -> Option<&Directory> {
         match self {
             Self::Directory(dir) => Some(dir),
-            Self::File{ .. } => None
+            Self::File { .. } => None,
         }
     }
 
     fn as_directory_mut(&mut self) -> Option<&mut Directory> {
         match self {
             Self::Directory(dir) => Some(dir),
-            Self::File{ .. } => None
+            Self::File { .. } => None,
         }
     }
 }
@@ -57,9 +57,13 @@ pub fn task07() {
     nodes.push(Node::Directory(Directory {
         parent: 0,
         name: "/".into(),
-        children: HashMap::new()
+        children: HashMap::new(),
     }));
-    nodes[0].as_directory_mut().unwrap().children.insert("/".into(), 0);
+    nodes[0]
+        .as_directory_mut()
+        .unwrap()
+        .children
+        .insert("/".into(), 0);
     for instruction in text.lines() {
         match instruction {
             i if i.starts_with("$ cd") => {
@@ -67,7 +71,12 @@ pub fn task07() {
                 if dir == ".." {
                     current_dir = nodes[current_dir].as_directory().unwrap().parent;
                 } else {
-                    current_dir = *nodes[current_dir].as_directory().unwrap().children.get(dir).unwrap();
+                    current_dir = *nodes[current_dir]
+                        .as_directory()
+                        .unwrap()
+                        .children
+                        .get(dir)
+                        .unwrap();
                 }
             }
             i if i.starts_with("$ ls") => {
@@ -79,10 +88,14 @@ pub fn task07() {
                 let new_dir = Directory {
                     parent: current_dir,
                     name: name.clone(),
-                    children: HashMap::new()
+                    children: HashMap::new(),
                 };
                 nodes.push(Node::Directory(new_dir));
-                nodes[current_dir].as_directory_mut().unwrap().children.insert(name, new_dir_idx);
+                nodes[current_dir]
+                    .as_directory_mut()
+                    .unwrap()
+                    .children
+                    .insert(name, new_dir_idx);
             }
             file => {
                 let (size, name) = file.split_once(' ').unwrap();
@@ -90,7 +103,11 @@ pub fn task07() {
                 let name = name.to_string();
                 let new_file_idx = nodes.len();
                 nodes.push(Node::File { size });
-                nodes[current_dir].as_directory_mut().unwrap().children.insert(name, new_file_idx);
+                nodes[current_dir]
+                    .as_directory_mut()
+                    .unwrap()
+                    .children
+                    .insert(name, new_file_idx);
             }
         }
     }
@@ -98,10 +115,17 @@ pub fn task07() {
     let mut sizes = Vec::new();
     let total_used = sum_directories_under_size(&nodes, 0, &mut sizes);
 
-    println!("Part 1: {}", sizes.iter().filter(|&&ds| ds <= 100_000).sum::<usize>());
+    println!(
+        "Part 1: {}",
+        sizes.iter().filter(|&&ds| ds <= 100_000).sum::<usize>()
+    );
     let space_left = TOTAL_SPACE - total_used;
     let at_least_must_be_freed = NEEDED_SPACE - space_left;
-    let choice = sizes.iter().filter(|&&s| s >= at_least_must_be_freed).min().unwrap();
+    let choice = sizes
+        .iter()
+        .filter(|&&s| s >= at_least_must_be_freed)
+        .min()
+        .unwrap();
     println!("Part 2: {choice}");
 
     let elapsed = start.elapsed();

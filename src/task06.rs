@@ -1,5 +1,3 @@
-
-
 pub fn task06() {
     let start = std::time::Instant::now();
     let bytes = include_bytes!("../tasks/task06.txt");
@@ -17,7 +15,10 @@ pub fn task06() {
 }
 
 fn first_window_of_n(bytes: &[u8], window: usize) -> usize {
-    let mut bitvector: u64 = bytes.iter().take(window).fold(0, |acc, &b| acc ^ (1 << (b - b'a')));
+    let mut bitvector: u64 = bytes
+        .iter()
+        .take(window)
+        .fold(0, |acc, &b| acc ^ (1 << (b - b'a')));
     for ((i, &new_byte), &old_byte) in bytes.iter().enumerate().skip(window).zip(bytes.iter()) {
         bitvector ^= 1 << (new_byte - b'a');
         bitvector ^= 1 << (old_byte - b'a');

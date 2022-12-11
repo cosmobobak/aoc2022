@@ -1,12 +1,6 @@
-#![warn(
-    clippy::all,
-    clippy::pedantic,
-    clippy::nursery,
-    clippy::cargo,
-)]
+#![warn(clippy::all, clippy::pedantic, clippy::nursery, clippy::cargo)]
 #![allow(unused_imports, dead_code)]
 
-mod util;
 mod task01;
 mod task02;
 mod task03;
@@ -17,6 +11,7 @@ mod task07;
 mod task08;
 mod task09;
 mod task10;
+mod util;
 
 use task01::task01;
 use task02::task02;

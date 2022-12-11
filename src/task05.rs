@@ -1,4 +1,3 @@
-
 #[derive(Clone, Copy)]
 pub struct StaticStack<T: Copy, const CAPACITY: usize> {
     stack: [T; CAPACITY],
@@ -68,7 +67,9 @@ fn borrow_indexes<T>(slice: &mut [T], i1: usize, i2: usize) -> (&mut T, &mut T) 
 
 pub fn task05() {
     let start = std::time::Instant::now();
-    let (arrangement, instructions) = include_str!("../tasks/task05.txt").split_once("\r\n\r\n").unwrap();
+    let (arrangement, instructions) = include_str!("../tasks/task05.txt")
+        .split_once("\r\n\r\n")
+        .unwrap();
 
     let mut stacks = [StaticStack::<u8, 100>::new(); 9];
     for line in arrangement.lines().rev().skip(1) {
@@ -82,7 +83,9 @@ pub fn task05() {
     }
 
     let parse_inst = |inst: &str| {
-        let mut parts = inst.split_whitespace().filter_map(|p| p.parse::<usize>().ok());
+        let mut parts = inst
+            .split_whitespace()
+            .filter_map(|p| p.parse::<usize>().ok());
         let n = parts.next().unwrap();
         let from = parts.next().unwrap() - 1;
         let to = parts.next().unwrap() - 1;

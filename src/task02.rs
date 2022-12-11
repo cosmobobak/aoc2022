@@ -2,8 +2,12 @@
 
 use crate::util::get_task;
 
-const fn choose_move(them: u8, outcome: u8) -> u8 { ((them as i8 + (outcome as i8 - 1)).rem_euclid(3)) as u8 }
-const fn outcome_score(them: u8, us: u8) -> u8 { [3, 0, 6][(them as i8 - us as i8).rem_euclid(3) as usize] }
+const fn choose_move(them: u8, outcome: u8) -> u8 {
+    ((them as i8 + (outcome as i8 - 1)).rem_euclid(3)) as u8
+}
+const fn outcome_score(them: u8, us: u8) -> u8 {
+    [3, 0, 6][(them as i8 - us as i8).rem_euclid(3) as usize]
+}
 
 pub fn task02() {
     let start = std::time::Instant::now();
