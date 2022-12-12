@@ -87,7 +87,7 @@ impl WeightedGraph for HeightMap {
 
 pub fn task12() {
     let start = std::time::Instant::now();
-    let data = include_str!("../tasks/task12.txt");
+    let data = include_str!("../tasks/task12-alt.txt");
 
     let mut map = HeightMap {
         data: Vec::new(),
@@ -104,6 +104,8 @@ pub fn task12() {
     let _ = dijk.search_tracked(&map, map.root()).unwrap();
     let path = dijk.path().unwrap();
     let steps = path.len() - 1;
+
+    // render_path(&map, &path);
 
     println!("Part 1: {steps}");
 
@@ -123,11 +125,12 @@ pub fn task12() {
 fn render_path(map: &HeightMap, path: &[Coordinate]) {
     for row in 0..map.data.len() {
         for col in 0..map.data[0].len() {
-            let c = Coordinate(row, col);
-            if path.contains(&c) {
-                print!("{CONTROL_RED}@{CONTROL_RESET}");
+            let co = Coordinate(row, col);
+            let c = map.at(co) as char;
+            if path.contains(&co) {
+                print!("{CONTROL_RED}{c}{CONTROL_RESET}");
             } else {
-                print!("{CONTROL_GREEN}{}{CONTROL_RESET}", map.at(c) as char);
+                print!("{CONTROL_GREEN}{c}{CONTROL_RESET}");
             }
         }
         println!();
