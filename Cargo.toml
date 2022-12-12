@@ -13,3 +13,4 @@ readme = "README.md"
 
 [dependencies]
 itertools = "0.10.5"
+graphsearch = { git = "https://github.com/cosmobobak/graphsearch" }
