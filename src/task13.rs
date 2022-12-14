@@ -1,4 +1,4 @@
-use std::{cmp::Ordering::{self, Equal, Less, Greater}, fmt::Display, iter::once};
+use std::{cmp::Ordering, fmt::Display, iter::once};
 use crate::util::MinMaxN;
 
 #[derive(Debug, Clone)]
@@ -31,30 +31,29 @@ impl Display for Element<'_> {
 }
 
 fn cmp(left: Element, right: Element) -> Ordering {
-    use Element::{List, Value};
     match (left, right) {
-        (Value(left), Value(right)) => left.cmp(&right),
-        (Value(left), List(mut right)) => {
-            right.next().map_or(Greater, |rhead| {
-                cmp(Value(left), rhead)
-                    .then_with(|| right.next().map_or(Equal, |_| Less))
+        (Element::Value(left), Element::Value(right)) => left.cmp(&right),
+        (Element::Value(left), Element::List(mut right)) => {
+            right.next().map_or(Ordering::Greater, |rhead| {
+                cmp(Element::Value(left), rhead)
+                    .then_with(|| right.next().map_or(Ordering::Equal, |_| Ordering::Less))
             })
         }
-        (List(mut left), Value(right)) => {
-            left.next().map_or(Less, |lhead| {
-                cmp(lhead, Value(right))
-                    .then_with(|| left.next().map_or(Equal, |_| Greater))
+        (Element::List(mut left), Element::Value(right)) => {
+            left.next().map_or(Ordering::Less, |lhead| {
+                cmp(lhead, Element::Value(right))
+                    .then_with(|| left.next().map_or(Ordering::Equal, |_| Ordering::Greater))
             })
         }
-        (List(mut left), List(mut right)) => loop {
+        (Element::List(mut left), Element::List(mut right)) => loop {
             match (left.next(), right.next()) {
                 (Some(next_left), Some(next_right)) => match cmp(next_left, next_right) {
-                    Equal => continue,
+                    Ordering::Equal => continue,
                     other => break other,
                 },
-                (Some(_), None) => break Greater,
-                (None, Some(_)) => break Less,
-                (None, None) => break Equal,
+                (Some(_), None) => break Ordering::Greater,
+                (None, Some(_)) => break Ordering::Less,
+                (None, None) => break Ordering::Equal,
             }
         },
     }
@@ -147,8 +146,8 @@ pub fn task13() {
         let left_parsed = ElementIterator::new(left_bytes).next().unwrap();
         let right_parsed = ElementIterator::new(right_bytes).next().unwrap();
         let order = cmp(left_parsed, right_parsed);
-        assert_ne!(order, Equal);
-        if order == Less {
+        assert_ne!(order, Ordering::Equal);
+        if order == Ordering::Less {
             sum += i + 1;
         }
     }
