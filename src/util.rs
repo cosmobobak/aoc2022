@@ -28,20 +28,16 @@ pub fn borrow_indexes<T>(slice: &mut [T], i1: usize, i2: usize) -> (&mut T, &mut
 }
 
 pub trait MinMaxN<T>: Iterator<Item = T>
-where
-    T: Ord,
 {
     fn max_n_by(self, n: usize, cmp: impl Fn(&T, &T) -> Ordering) -> Option<Vec<T>>;
-    fn max_n(self, n: usize) -> Option<Vec<T>>;
-    fn min_n(self, n: usize) -> Option<Vec<T>>;
     fn max_n_ct_by<const N: usize>(self, cmp: impl Fn(&T, &T) -> Ordering) -> Option<[T; N]>;
-    fn max_n_ct<const N: usize>(self) -> Option<[T; N]>;
-    fn min_n_ct<const N: usize>(self) -> Option<[T; N]>;
+    fn max_n(self, n: usize) -> Option<Vec<T>> where T: Ord ;
+    fn min_n(self, n: usize) -> Option<Vec<T>> where T: Ord;
+    fn max_n_ct<const N: usize>(self) -> Option<[T; N]> where T: Ord;
+    fn min_n_ct<const N: usize>(self) -> Option<[T; N]> where T: Ord;
 }
 
 impl<T, I: Iterator<Item = T>> MinMaxN<T> for I
-where
-    T: Ord,
 {
     fn max_n_by(mut self, n: usize, cmp: impl Fn(&T, &T) -> Ordering) -> Option<Vec<T>> {
         let mut v = Vec::with_capacity(n);
@@ -60,11 +56,11 @@ where
         Some(v)
     }
 
-    fn max_n(self, n: usize) -> Option<Vec<T>> {
+    fn max_n(self, n: usize) -> Option<Vec<T>> where T: Ord {
         self.max_n_by(n, Ord::cmp)
     }
 
-    fn min_n(self, n: usize) -> Option<Vec<T>> {
+    fn min_n(self, n: usize) -> Option<Vec<T>> where T: Ord {
         self.max_n_by(n, |a, b| b.cmp(a))
     }
 
@@ -93,11 +89,11 @@ where
         Some(v)
     }
 
-    fn max_n_ct<const N: usize>(self) -> Option<[T; N]> {
+    fn max_n_ct<const N: usize>(self) -> Option<[T; N]> where T: Ord {
         self.max_n_ct_by::<N>(Ord::cmp)
     }
 
-    fn min_n_ct<const N: usize>(self) -> Option<[T; N]> {
+    fn min_n_ct<const N: usize>(self) -> Option<[T; N]> where T: Ord {
         self.max_n_ct_by::<N>(|a, b| b.cmp(a))
     }
 }
