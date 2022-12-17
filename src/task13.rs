@@ -7,29 +7,6 @@ enum Element<'a> {
     List(ElementIterator<'a>),
 }
 
-impl Element<'_> {
-    fn to_underlying(&self) -> &[u8] {
-        match self {
-            Element::Value(value) => panic!("Cannot convert value to underlying: {value}"),
-            Element::List(iter) => iter.text,
-        }
-    }
-}
-
-impl Display for Element<'_> {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let s = self.clone();
-        match s {
-            Element::Value(value) => write!(f, "{value}"),
-            Element::List(iter) => write!(
-                f,
-                "[{}]",
-                iter.map(|e| format!("{e}")).collect::<Vec<_>>().join(",")
-            ),
-        }
-    }
-}
-
 fn cmp(left: Element, right: Element) -> Ordering {
     match (left, right) {
         (Element::Value(left), Element::Value(right)) => left.cmp(&right),
@@ -58,6 +35,16 @@ fn cmp(left: Element, right: Element) -> Ordering {
         },
     }
 }
+
+impl Element<'_> {
+    fn to_underlying(&self) -> &[u8] {
+        match self {
+            Element::Value(value) => panic!("Cannot convert value to underlying: {value}"),
+            Element::List(iter) => iter.text,
+        }
+    }
+}
+
 
 #[derive(Debug, Clone)]
 struct ElementIterator<'a> {
