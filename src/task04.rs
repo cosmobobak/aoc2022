@@ -1,9 +1,3 @@
-use std::cmp::Ordering;
-
-use itertools::Itertools;
-
-use crate::util::CollectIntoVec;
-
 const fn either_contains(a: (i32, i32), b: (i32, i32)) -> bool {
     let left_vector = b.0 - a.0;
     let right_vector = b.1 - a.1;
