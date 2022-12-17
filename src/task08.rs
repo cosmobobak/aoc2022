@@ -102,7 +102,7 @@ pub fn task08() {
         }
     }
     let visible_trees = visible.iter().filter(|&&v| v != 0).count();
-    println!("Part 1: {}", visible_trees);
+    println!("Part 1: {visible_trees}");
 
     let best_position_score = (1..width - 1)
         .flat_map(|x| (1..height - 1).map(move |y| (x, y)))

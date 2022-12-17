@@ -60,7 +60,7 @@ pub fn task11() {
             "* old" => Op::Square,
             op if op.starts_with("+ ") => Op::Add(op[2..].parse().unwrap()),
             op if op.starts_with("* ") => Op::Mul(op[2..].parse().unwrap()),
-            _ => panic!("Unknown op: {}", op),
+            _ => panic!("Unknown op: {op}"),
         };
         let test = lines.next().unwrap().split_once("divisible by ").unwrap().1.parse().unwrap();
         let to1: usize = lines.next().unwrap().split_once("to monkey ").unwrap().1.parse().unwrap();

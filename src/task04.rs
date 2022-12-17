@@ -33,8 +33,8 @@ pub fn task04() {
         part2 += u64::from(overlap(lhs, rhs));
     }
 
-    println!("Part 1: {}", part1);
-    println!("Part 2: {}", part2);
+    println!("Part 1: {part1}");
+    println!("Part 2: {part2}");
     let elapsed = start.elapsed();
     println!("Elapsed: {:.3}ms", elapsed.as_secs_f64() * 1000.0);
 }

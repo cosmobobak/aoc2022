@@ -10,7 +10,7 @@ enum Element<'a> {
 impl Element<'_> {
     fn to_underlying(&self) -> &[u8] {
         match self {
-            Element::Value(value) => panic!("Cannot convert value to underlying: {}", value),
+            Element::Value(value) => panic!("Cannot convert value to underlying: {value}"),
             Element::List(iter) => iter.text,
         }
     }
@@ -20,7 +20,7 @@ impl Display for Element<'_> {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let s = self.clone();
         match s {
-            Element::Value(value) => write!(f, "{}", value),
+            Element::Value(value) => write!(f, "{value}"),
             Element::List(iter) => write!(
                 f,
                 "[{}]",
@@ -152,7 +152,7 @@ pub fn task13() {
         }
     }
 
-    println!("Part 1: {}", sum);
+    println!("Part 1: {sum}");
 
     let mut packets = input
         .lines()
